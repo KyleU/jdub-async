@@ -17,7 +17,7 @@ How To Use
 ```xml
 <dependencies>
   <dependency>
-    <groupId>kyleu</groupId>
+    <groupId>com.kyleu</groupId>
     <artifactId>jdub_async_2.11</artifactId>
     <version>1.0</version>
   </dependency>
@@ -80,6 +80,7 @@ License
 -------
 
 Copyright (c) 2015 Kyle Unverferth
+
 Inspired by [jdub](https://github.com/SimpleFinance/jdub).
 
 Published under The MIT License, see [LICENSE.md](LICENSE.md)

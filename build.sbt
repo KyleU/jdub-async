@@ -1,6 +1,6 @@
 name := "jdub-async"
 
-organization := "kyleu"
+organization := "com.kyleu"
 
 version := "1.0"
 
