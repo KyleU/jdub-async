@@ -17,7 +17,7 @@ How To Use
 ```xml
 <dependencies>
   <dependency>
-    <groupId>com.kyleu</groupId>
+    <groupId>kyleu</groupId>
     <artifactId>jdub_async_2.11</artifactId>
     <version>1.0</version>
   </dependency>
