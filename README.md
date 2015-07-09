@@ -14,14 +14,9 @@ How To Use
 
 **First**, specify Jdub-async as a dependency:
 
-```xml
-<dependencies>
-  <dependency>
-    <groupId>com.kyleu</groupId>
-    <artifactId>jdub_async_2.11</artifactId>
-    <version>1.0</version>
-  </dependency>
-</dependencies>
+```scala
+resolvers += Resolver.jcenterRepo
+libraryDepenencies += "com.kyleu" %% "jdub-async" % "1.0"
 ```
 
 (The postgres-async driver is automatically imported)
@@ -75,6 +70,23 @@ case class UpdateEmail(name: String, newEmail: String) extends Statement {
 
 val affectedRowCount = db.execute(UpdateEmail("Old Guy", "oldguy@example.com"))
 ```
+
+**Fifth**, extend BaseQueries for common classes:
+```scala
+case object UserQueries extends BaseQueries {
+  override protected val tableName = "users"
+  override protected val columns = Seq("id", "username", "full_name", "password")
+  override protected val searchColumns = Seq("username", "full_name")
+
+  val insert = Insert
+  val getById = GetById
+  val search = Search
+}
+
+Database.execute(UserQueries.Insert(User(1, "kyle", "Kyle U", "password")))
+val searchResults = Database.query(UserQueries.search("kyle"))
+```
+
 
 License
 -------

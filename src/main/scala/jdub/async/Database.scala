@@ -10,6 +10,12 @@ import scala.concurrent.duration._
 import scala.concurrent.{ Await, Future }
 
 case class Database(configuration: Configuration) {
+  private[this] val log = LoggerFactory.getLogger(Database.getClass)
+  private[this] val factory = new PostgreSQLConnectionFactory(configuration)
+  private[this] val poolConfig = new PoolConfiguration(maxObjects = 100, maxIdle = 10, maxQueueSize = 1000)
+  private[this] val pool = new ConnectionPool(factory, poolConfig)
+  private[this] def prependComment(obj: Object, sql: String) = s"/* ${obj.getClass.getSimpleName.replace("$", "")} */ $sql"
+
   def this(username: String, host: String = "localhost", port: Int = 5432, password: Option[String] = None, database: Option[String] = None) = {
     this(Configuration(username, host, port, password, database))
   }
@@ -60,11 +66,4 @@ case class Database(configuration: Configuration) {
     Await.result(pool.close, 5.seconds)
     true
   }
-
-  private[this] val log = LoggerFactory.getLogger(Database.getClass)
-  private[this] val factory = new PostgreSQLConnectionFactory(configuration)
-  private[this] val poolConfig = new PoolConfiguration(maxObjects = 100, maxIdle = 10, maxQueueSize = 1000)
-  private[this] val pool = new ConnectionPool(factory, poolConfig)
-
-  private[this] def prependComment(obj: Object, sql: String) = s"/* ${obj.getClass.getSimpleName.replace("$", "")} */ $sql"
 }
