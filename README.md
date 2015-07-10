@@ -83,7 +83,7 @@ case object UserQueries extends BaseQueries {
   val search = Search
 }
 
-Database.execute(UserQueries.Insert(User(1, "kyle", "Kyle U", "password")))
+Database.execute(UserQueries.insert(User(1, "kyle", "Kyle U", "password")))
 val searchResults = Database.query(UserQueries.search("kyle"))
 ```
 
